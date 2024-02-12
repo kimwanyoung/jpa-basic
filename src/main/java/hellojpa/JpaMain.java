@@ -44,8 +44,17 @@ public class JpaMain {
 
          */
 
+        /*
+            // 변경 감지
             Member member = em.find(Member.class, 150L);
             member.setName("AAA");
+         */
+
+            //준영속 상태로 만드는 방법
+            Member member = em.find(Member.class, 150L);
+            member.setName("Change Name"); // => 이 상태는 영속상태
+
+            em.detach(member); // => JPA에서 관리하지 않는 상태로 변경
 
             tx.commit(); // 커밋 시점에 데이터베이스 쿼리가 실행됨
         } catch (Exception exception) {
