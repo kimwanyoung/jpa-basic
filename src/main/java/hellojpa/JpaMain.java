@@ -1,7 +1,9 @@
 package hellojpa;
 
-import jakarta.persistence.*;
-import java.util.List;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
 public class JpaMain {
 
@@ -14,19 +16,25 @@ public class JpaMain {
         tx.begin();
 
         try {
-
             Member member = new Member();
-            member.setId(1L);
             member.setUsername("A");
-            member.setRoleType(RoleType.USER);
+
+            Member member1 = new Member();
+            member1.setUsername("B");
 
             Member member2 = new Member();
-            member2.setId(2L);
-            member2.setUsername("B");
-            member2.setRoleType(RoleType.ADMIN);
+            member2.setUsername("C");
 
+            System.out.println("====================");
             em.persist(member);
+            em.persist(member1);
             em.persist(member2);
+
+            System.out.println("member = " + member.getId());
+            System.out.println("member1 = " + member1.getId());
+            System.out.println("member2 = " + member2.getId());
+
+            System.out.println("====================");
 
             tx.commit();
         } catch (Exception exception) {
